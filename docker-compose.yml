@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+  bot:
+    env_file:
+      - .env
+    build: .
+    depends_on:
+      - db
+    container_name: bot_alice
+
+  db:
+    restart: unless-stopped
+    container_name: db_alice
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - ./db:/var/lib/postgresql/data
